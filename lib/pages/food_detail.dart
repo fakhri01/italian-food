@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:food_order/colors.dart';
 import 'package:food_order/components/app_bar.dart';
+import 'package:food_order/data/model.dart';
 
 class FoodDetailPage extends StatefulWidget {
-  const FoodDetailPage({super.key});
+  final Food food;
+
+  const FoodDetailPage({super.key, required this.food});
 
   @override
   State<FoodDetailPage> createState() => FoodDetailPageState();
@@ -23,7 +26,7 @@ class FoodDetailPageState extends State<FoodDetailPage> {
           Padding(
             padding: EdgeInsets.only(top: 8),
             child: Text(
-              "Beef Cheese",
+              widget.food.name,
               style: TextStyle(
                 fontFamily: 'Playwrite',
                 fontSize: displayWidth / 14,
@@ -34,18 +37,20 @@ class FoodDetailPageState extends State<FoodDetailPage> {
           ),
           Padding(
             padding: EdgeInsets.symmetric(vertical: 8),
-            child: Image.asset("images/pizza_home.png"),
+            child: Image.asset(
+              widget.food.image,
+              width: double.infinity,
+              height: 250,
+              fit: BoxFit.cover,
+            ),
           ),
           Padding(
             padding: EdgeInsets.only(bottom: 8),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                textButton('Cheese'),
-                textButton('Sausage'),
-                textButton('Olive'),
-                textButton('Pepperoni'),
-              ],
+              children: widget.food.ingredients
+                  .map((ingredient) => textButton(ingredient))
+                  .toList(),
             ),
           ),
           Padding(
@@ -91,7 +96,7 @@ class FoodDetailPageState extends State<FoodDetailPage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "7.99\$",
+                  "${widget.food.price}\$",
                   style: TextStyle(
                     color: primaryColor,
                     fontSize: 18,
@@ -136,7 +141,7 @@ Widget textButton(text) {
     style: TextButton.styleFrom(backgroundColor: primaryColor),
     child: Text(
       text,
-      style: TextStyle(color: textColor, fontFamily: "Playwrite"),
+      style: TextStyle(color: textColor, fontFamily: "Playwrite", fontSize: 12),
     ),
   );
 }

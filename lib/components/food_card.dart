@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:food_order/colors.dart';
 
 class FoodCard extends StatelessWidget {
-  // int id;
+  final int id;
   final String foodName;
   final String image;
   final double price;
 
   const FoodCard({
     super.key,
-    // required this.id,
+    required this.id,
     required this.foodName,
     required this.image,
     required this.price,
@@ -16,12 +17,40 @@ class FoodCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Image.asset(image, width: 100),
-        Text(foodName),
-        Text("\$$price"),
-      ],
+    return Card(
+      elevation: 5,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
+      clipBehavior: Clip.antiAlias,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Image.asset(
+            image,
+            width: double.infinity,
+            height: 120,
+            fit: BoxFit.cover,
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 7, bottom: 7),
+            child: Text(
+              foodName,
+              style: TextStyle(
+                color: primaryColor,
+                fontWeight: FontWeight.bold,
+                fontFamily: "Playwrite",
+                fontSize: 13,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+          Text(
+            "\$$price",
+            textAlign: TextAlign.center,
+            style: TextStyle(fontFamily: "Playwrite", fontSize: 12),
+          ),
+        ],
+      ),
     );
   }
 }

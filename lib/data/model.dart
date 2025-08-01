@@ -1,15 +1,21 @@
 class Food {
   final int id;
   final String name;
+  final String category;
   final String image;
-  final List<String> ingredients;
   final double price;
+  final int prepTime;
+  final double rating;
+  final String description;
 
   Food({
     required this.id,
     required this.name,
+    required this.category,
     required this.image,
-    required this.ingredients,
     required this.price,
+    required this.prepTime,
+    required this.rating,
+    required this.description,
   });
 }

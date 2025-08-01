@@ -24,6 +24,15 @@ class FoodDetailPageState extends State<FoodDetailPage> {
       body: Column(
         children: [
           Padding(
+            padding: EdgeInsets.only(bottom: 8),
+            child: Image.asset(
+              widget.food.image,
+              width: double.infinity,
+              height: 250,
+              fit: BoxFit.cover,
+            ),
+          ),
+          Padding(
             padding: EdgeInsets.only(top: 8),
             child: Text(
               widget.food.name,
@@ -33,24 +42,6 @@ class FoodDetailPageState extends State<FoodDetailPage> {
                 color: primaryColor,
                 fontWeight: FontWeight.bold,
               ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 8),
-            child: Image.asset(
-              widget.food.image,
-              width: double.infinity,
-              height: 250,
-              fit: BoxFit.cover,
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(bottom: 8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: widget.food.ingredients
-                  .map((ingredient) => textButton(ingredient))
-                  .toList(),
             ),
           ),
           Padding(

@@ -5,14 +5,14 @@ import 'package:food_order/data/db.dart';
 import 'package:food_order/data/model.dart';
 import 'package:food_order/pages/food_detail.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class Foods extends StatefulWidget {
+  const Foods({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<Foods> createState() => _FoodsState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _FoodsState extends State<Foods> {
   bool _isLoading = true;
   List<Food> _foods = [];
 
@@ -26,7 +26,7 @@ class _HomePageState extends State<HomePage> {
     try {
       setState(() => _isLoading = true);
       await Future.delayed(const Duration(seconds: 2));
-      final fetchFoods = foods;
+      final fetchFoods = foodsData;
       setState(() {
         _foods = fetchFoods;
         _isLoading = false;

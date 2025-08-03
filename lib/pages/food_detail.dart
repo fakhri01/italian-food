@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_order/colors.dart';
 import 'package:food_order/components/app_bar.dart';
+import 'package:food_order/components/btn.dart';
 import 'package:food_order/data/model.dart';
 
 class FoodDetailPage extends StatefulWidget {
@@ -23,66 +24,68 @@ class FoodDetailPageState extends State<FoodDetailPage> {
       appBar: appBar(),
       body: Column(
         children: [
-          Padding(
-            padding: EdgeInsets.only(bottom: 8),
-            child: Image.asset(
-              widget.food.image,
-              width: double.infinity,
-              height: 250,
-              fit: BoxFit.cover,
-            ),
+          Image.asset(
+            widget.food.image,
+            width: double.infinity,
+            height: 250,
+            fit: BoxFit.cover,
           ),
           Padding(
-            padding: EdgeInsets.only(top: 8),
-            child: Text(
-              widget.food.name,
-              style: TextStyle(
-                fontFamily: 'Playwrite',
-                fontSize: displayWidth / 14,
-                color: primaryColor,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8),
+            padding: EdgeInsets.all(12),
             child: Column(
               children: [
                 Text(
-                  "20 min",
+                  widget.food.name,
                   style: TextStyle(
-                    color: textColorSecondary,
-                    fontSize: 18,
+                    fontFamily: primaryFontFamily,
+                    fontSize: displayWidth / 14,
+                    color: primaryColor,
                     fontWeight: FontWeight.bold,
-                    fontFamily: "Playwrite",
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 8),
-                  child: Text(
-                    "Delivery",
-                    style: TextStyle(
-                      color: primaryColor,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: "Playwrite",
-                    ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Icon(
+                        Icons.star_border_rounded,
+                        color: textColorSecondary,
+                      ),
+                      Text(
+                        "${widget.food.rating}",
+                        style: TextStyle(
+                          fontFamily: secondaryFontFAmily,
+                          fontSize: 16,
+                          color: textColorSecondary,
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsGeometry.symmetric(horizontal: 7),
+                        child: Text("-"),
+                      ),
+                      Text(
+                        "${widget.food.prepTime} mins",
+                        style: TextStyle(
+                          color: textColorSecondary,
+                          fontSize: 16,
+                          fontFamily: secondaryFontFAmily,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 Text(
-                  "Meat lover, get ready to meet your pizza!",
-                  style: TextStyle(
-                    color: textColorSecondary,
-                    fontSize: 18,
-                    fontFamily: "Playwrite",
-                  ),
-                  textAlign: TextAlign.center,
+                  widget.food.description,
+                  style: TextStyle(color: textColorSecondary),
+                  textAlign: TextAlign.justify,
                 ),
               ],
             ),
           ),
+          Spacer(),
           Padding(
-            padding: EdgeInsets.only(left: 12, right: 12, top: 40),
+            padding: EdgeInsets.all(12),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -90,33 +93,12 @@ class FoodDetailPageState extends State<FoodDetailPage> {
                   "${widget.food.price}\$",
                   style: TextStyle(
                     color: primaryColor,
-                    fontSize: 18,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
-                    fontFamily: "Playwrite",
+                    fontFamily: secondaryFontFAmily,
                   ),
                 ),
-                SizedBox(
-                  width: displayWidth / 2,
-                  height: displayHeight / 16,
-                  child: TextButton(
-                    style: TextButton.styleFrom(
-                      backgroundColor: primaryColor,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(7)),
-                      ),
-                    ),
-                    onPressed: () => () {},
-                    child: Text(
-                      "Add To Card",
-                      style: TextStyle(
-                        color: textColor,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                        fontFamily: "Playwrite",
-                      ),
-                    ),
-                  ),
-                ),
+                Btn(title: "Add To Cart"),
               ],
             ),
           ),

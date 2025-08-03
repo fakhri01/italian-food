@@ -1,8 +1,6 @@
-import 'dart:math';
-
 import 'package:food_order/data/model.dart';
 
-final List<Food> _originalFoods = [
+final List<Food> foodsData = [
   // Antipasti (5 items)
   Food(
     id: 1,
@@ -231,5 +229,3 @@ final List<Food> _originalFoods = [
         "Grandmother's cake featuring a buttery crust filled with vanilla custard and pine nuts. Dusted with powdered sugar and served with a dollop of whipped cream for nostalgia in every bite.",
   ),
 ];
-
-final foodsData = [..._originalFoods]..shuffle(Random());

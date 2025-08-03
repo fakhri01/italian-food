@@ -18,7 +18,6 @@ class FoodDetailPageState extends State<FoodDetailPage> {
   Widget build(BuildContext context) {
     var displayInfo = MediaQuery.of(context);
     final double displayWidth = displayInfo.size.width;
-    final double displayHeight = displayInfo.size.height;
     return Scaffold(
       backgroundColor: backgroundColor,
       appBar: appBar(),

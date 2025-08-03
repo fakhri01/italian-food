@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_order/components/app_bar.dart';
 import 'package:food_order/components/filter_foods.dart';
 import 'package:food_order/components/food_card.dart';
+import 'package:food_order/components/sorting_button.dart';
 import 'package:food_order/data/db.dart';
 import 'package:food_order/data/model.dart';
 import 'package:food_order/pages/food_detail.dart';
@@ -67,7 +68,17 @@ class _FoodsState extends State<Foods> {
           ? const Center(child: CircularProgressIndicator())
           : Column(
               children: [
+                Row(children: [Text("Search is coming soon...")]),
                 FilterFoods(onFilterSelected: onFilterSelected),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 12),
+                      child: SortingButton(),
+                    ),
+                  ],
+                ),
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),

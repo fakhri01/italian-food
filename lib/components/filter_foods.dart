@@ -15,6 +15,7 @@ class _FilterFoodsState extends State<FilterFoods> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
+      padding: EdgeInsets.symmetric(vertical: 12),
       scrollDirection: Axis.horizontal,
       child: Row(
         children: filters

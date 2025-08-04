@@ -20,6 +20,28 @@ class _FoodsState extends State<Foods> {
   List<Food> _foods = [];
   String _currentFilter = "All";
 
+  void onSortSelected(String sort) {
+    setState(() {
+      switch (sort) {
+        case "Price: Low to High":
+          _foods.sort((a, b) => a.price.compareTo(b.price));
+          break;
+        case "Price: High to Low":
+          _foods.sort((a, b) => b.price.compareTo(a.price));
+          break;
+        case "Rating: Low to High":
+          _foods.sort((a, b) => a.rating.compareTo(b.rating));
+          break;
+        case "Rating: High to Low":
+          _foods.sort((a, b) => b.rating.compareTo(a.rating));
+          break;
+        case "Default":
+          _foods = List.of(_allFoods);
+          break;
+      }
+    });
+  }
+
   void onFilterSelected(String filter) {
     if (filter != _currentFilter) {
       setState(() {
@@ -70,15 +92,7 @@ class _FoodsState extends State<Foods> {
               children: [
                 Row(children: [Text("Search is coming soon...")]),
                 FilterFoods(onFilterSelected: onFilterSelected),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 12),
-                      child: SortingButton(),
-                    ),
-                  ],
-                ),
+                SortingButton(onSortSelected: onSortSelected),
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),

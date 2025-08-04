@@ -22,7 +22,7 @@ class SortingButtonState extends State<SortingButton> {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisSize: MainAxisSize.max,
+      // mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         Padding(
@@ -34,7 +34,6 @@ class SortingButtonState extends State<SortingButton> {
               child: Text("Sort by", style: TextStyle(color: primaryColor)),
             ),
             icon: Icon(Icons.sort, color: primaryColor),
-            value: _selectedItem,
             onChanged: (String? newValue) {
               setState(() {
                 _selectedItem = newValue;

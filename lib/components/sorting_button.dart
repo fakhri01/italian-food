@@ -13,7 +13,6 @@ class SortingButtonState extends State<SortingButton> {
   String? _selectedItem;
 
   final List<String> _dropdownItems = [
-    'Default',
     'Price: Low to High',
     'Price: High to Low',
     'Rating: Low to High',

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_order/components/app_bar.dart';
 import 'package:food_order/components/filter_foods.dart';
 import 'package:food_order/components/food_card.dart';
+import 'package:food_order/components/search.dart';
 import 'package:food_order/components/sorting_button.dart';
 import 'package:food_order/data/db.dart';
 import 'package:food_order/data/model.dart';
@@ -19,6 +20,7 @@ class _FoodsState extends State<Foods> {
   List<Food> _allFoods = [];
   List<Food> _foods = [];
   String _currentFilter = "All";
+  late String _searchQuery;
 
   void onSortSelected(String sort) {
     setState(() {
@@ -34,9 +36,6 @@ class _FoodsState extends State<Foods> {
           break;
         case "Rating: High to Low":
           _foods.sort((a, b) => b.rating.compareTo(a.rating));
-          break;
-        case "Default":
-          _foods = List.of(_allFoods);
           break;
       }
     });
@@ -55,6 +54,22 @@ class _FoodsState extends State<Foods> {
         }
       });
     }
+  }
+
+  void onSearchChanged(String value) {
+    setState(() {
+      _searchQuery = value;
+      if (_searchQuery.isEmpty) {
+        _foods = List.of(_allFoods);
+      } else {
+        _foods = _allFoods
+            .where(
+              (food) =>
+                  food.name.toLowerCase().contains(_searchQuery.toLowerCase()),
+            )
+            .toList();
+      }
+    });
   }
 
   @override
@@ -90,44 +105,48 @@ class _FoodsState extends State<Foods> {
           ? const Center(child: CircularProgressIndicator())
           : Column(
               children: [
-                Row(children: [Text("Search is coming soon...")]),
+                SearchFoods(onSearchChanged: onSearchChanged),
                 FilterFoods(onFilterSelected: onFilterSelected),
                 SortingButton(onSortSelected: onSortSelected),
                 Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: GridView.builder(
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                            childAspectRatio: 3,
-                            crossAxisCount: 1,
-                            mainAxisSpacing: 12,
+                  child: _foods.isEmpty
+                      ? Center(
+                          child: Text("No results found for $_searchQuery"),
+                        )
+                      : Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: GridView.builder(
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                                  childAspectRatio: 3,
+                                  crossAxisCount: 1,
+                                  mainAxisSpacing: 12,
+                                ),
+                            itemCount: _foods.length,
+                            itemBuilder: (context, index) {
+                              final food = _foods[index];
+                              return InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          FoodDetailPage(food: food),
+                                    ),
+                                  );
+                                },
+                                splashColor: Colors.blue.withValues(alpha: 0),
+                                child: FoodCard(
+                                  id: food.id,
+                                  foodName: food.name,
+                                  image: food.image,
+                                  price: food.price,
+                                  rating: food.rating,
+                                ),
+                              );
+                            },
                           ),
-                      itemCount: _foods.length,
-                      itemBuilder: (context, index) {
-                        final food = _foods[index];
-                        return InkWell(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    FoodDetailPage(food: food),
-                              ),
-                            );
-                          },
-                          splashColor: Colors.blue.withValues(alpha: 0),
-                          child: FoodCard(
-                            id: food.id,
-                            foodName: food.name,
-                            image: food.image,
-                            price: food.price,
-                            rating: food.rating,
-                          ),
-                        );
-                      },
-                    ),
-                  ),
+                        ),
                 ),
               ],
             ),

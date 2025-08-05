@@ -20,7 +20,7 @@ class FoodDetailPageState extends State<FoodDetailPage> {
     final double displayWidth = displayInfo.size.width;
     return Scaffold(
       backgroundColor: backgroundColor,
-      appBar: appBar(),
+      appBar: appBar(context),
       body: Column(
         children: [
           Image.asset(

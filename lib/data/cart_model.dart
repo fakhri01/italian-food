@@ -1,11 +1,11 @@
-class Cart {
+class CartModel {
   final int id;
   final String name;
   final String image;
   final double price;
   final int quantity;
 
-  Cart({
+  CartModel({
     required this.id,
     required this.name,
     required this.image,

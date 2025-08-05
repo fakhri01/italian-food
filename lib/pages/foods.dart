@@ -100,7 +100,7 @@ class _FoodsState extends State<Foods> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBar(),
+      appBar: appBar(context),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : Column(

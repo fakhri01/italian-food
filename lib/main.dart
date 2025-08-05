@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:food_order/pages/home.dart';
+import 'package:food_order/pages/cart.dart';
+// import 'package:food_order/pages/home.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const HomePage(),
+      home: const Cart(),
     );
   }
 }

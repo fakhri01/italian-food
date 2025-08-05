@@ -27,7 +27,7 @@ class _CarouselComponentState extends State<CarouselComponent> {
           items: carouselImages.map((image) => Image.asset(image)).toList(),
           options: CarouselOptions(
             viewportFraction: 1,
-            autoPlayInterval: Duration(milliseconds: 1500),
+            autoPlayInterval: Duration(milliseconds: 2000),
             autoPlay: true,
             onPageChanged: (index, reason) => setState(() {
               _currentIndex = index;

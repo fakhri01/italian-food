@@ -8,14 +8,18 @@ class ShoppingCartCard extends StatefulWidget {
   final double price;
   final int quantity;
   final Function(int) onPressed;
+  final Function(int) onIncreaseQuantity;
+  final Function(int) onDecreaseQuantity;
   const ShoppingCartCard({
     super.key,
     required this.id,
     required this.name,
     required this.image,
     required this.price,
-    required this.quantity,
+    this.quantity = 1,
     required this.onPressed,
+    required this.onIncreaseQuantity,
+    required this.onDecreaseQuantity,
   });
 
   @override
@@ -32,25 +36,47 @@ class _ShoppingCartCardState extends State<ShoppingCartCard> {
         children: [
           Image.asset(widget.image, width: 130, fit: BoxFit.fitHeight),
           SizedBox(width: 12),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 12),
-              Text(
-                widget.name,
-                style: TextStyle(
-                  color: primaryColor,
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  widget.name,
+                  style: TextStyle(
+                    color: primaryColor,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-              Text("Price: ${widget.price}", style: TextStyle()),
-              Text("Price: ${widget.quantity}", style: TextStyle()),
-            ],
+                Text(
+                  "Price: \$ ${widget.price.toStringAsFixed(2)}",
+                  style: TextStyle(fontSize: 15),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    IconButton(
+                      onPressed: () => (setState(() {
+                        widget.onDecreaseQuantity(widget.id);
+                      })),
+                      icon: Icon(Icons.remove),
+                    ),
+                    Text("${widget.quantity}", style: TextStyle(fontSize: 15)),
+                    IconButton(
+                      visualDensity: VisualDensity(horizontal: 0),
+                      onPressed: () => (setState(() {
+                        widget.onIncreaseQuantity(widget.id);
+                      })),
+                      icon: Icon(Icons.add),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
-          Spacer(),
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               IconButton(
                 icon: Icon(Icons.close),

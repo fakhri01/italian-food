@@ -12,7 +12,7 @@ class Cart extends StatefulWidget {
 }
 
 class _CartState extends State<Cart> {
-  double? totalPrice = 0.0;
+  double totalPrice = 0.0;
 
   final List<CartModel> testArr = [
     CartModel(
@@ -22,6 +22,20 @@ class _CartState extends State<Cart> {
       price: 8.50,
       quantity: 1,
     ),
+    CartModel(
+      id: 2,
+      name: "Caprese Salad",
+      image: "images/Affogato.jpg",
+      price: 12.00,
+      quantity: 1,
+    ),
+    CartModel(
+      id: 3,
+      name: "Fritto Misto",
+      image: "images/Bistecca Fiorentina.webp",
+      price: 15.00,
+      quantity: 3,
+    ),
   ];
 
   void removeItem(int id) {
@@ -30,28 +44,48 @@ class _CartState extends State<Cart> {
     });
   }
 
+  void increaseQuantity(int id) {
+    setState(() {
+      final item = testArr.firstWhere((element) => (element.id == id));
+      item.quantity++;
+    });
+  }
+
+  void decreaseQuantity(int id) {
+    setState(() {
+      final item = testArr.firstWhere((element) => (element.id == id));
+      if (item.quantity > 0) {
+        item.quantity--;
+        if (item.quantity == 0) {
+          removeItem(id);
+        }
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    totalPrice = testArr.fold(
+      0.0,
+      (sum, item) => sum + (item.price * item.quantity),
+    );
     return Scaffold(
-      appBar: appBar(context),
+      appBar: appBar(context, showCartIcon: false),
       body: Padding(
         padding: const EdgeInsets.all(12.0),
         child: ListView.builder(
           itemCount: testArr.length,
           itemBuilder: (context, index) {
-            final test = testArr[index];
-            return InkWell(
-              onTap: () {
-                removeItem(test.id);
-              },
-              child: ShoppingCartCard(
-                id: test.id,
-                name: test.name,
-                image: test.image,
-                price: test.price,
-                quantity: test.quantity,
-                onPressed: removeItem,
-              ),
+            final item = testArr[index];
+            return ShoppingCartCard(
+              id: item.id,
+              name: item.name,
+              image: item.image,
+              price: item.price,
+              quantity: item.quantity,
+              onPressed: removeItem,
+              onIncreaseQuantity: increaseQuantity,
+              onDecreaseQuantity: decreaseQuantity,
             );
           },
         ),
@@ -65,7 +99,10 @@ class _CartState extends State<Cart> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Total: \$$totalPrice", style: TextStyle(fontSize: 18)),
+              Text(
+                "Total: \$${totalPrice.toStringAsFixed(2)}",
+                style: TextStyle(fontSize: 18),
+              ),
               Btn(title: "Checkout"),
             ],
           ),

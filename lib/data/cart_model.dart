@@ -3,7 +3,7 @@ class CartModel {
   final String name;
   final String image;
   final double price;
-  final int quantity;
+  int quantity;
 
   CartModel({
     required this.id,

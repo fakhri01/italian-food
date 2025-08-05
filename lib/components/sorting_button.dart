@@ -28,6 +28,7 @@ class SortingButtonState extends State<SortingButton> {
         Padding(
           padding: const EdgeInsets.only(right: 12),
           child: DropdownButton<String>(
+            value: _selectedItem,
             underline: SizedBox.shrink(),
             hint: Transform.translate(
               offset: Offset(80.0, 0.0),

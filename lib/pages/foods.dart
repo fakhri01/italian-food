@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:food_order/components/app_bar.dart';
+import 'package:food_order/colors.dart';
 import 'package:food_order/components/filter_foods.dart';
 import 'package:food_order/components/food_card.dart';
 import 'package:food_order/components/search.dart';
@@ -100,7 +100,16 @@ class _FoodsState extends State<Foods> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBar(context),
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: primaryColor,
+        title: Center(
+          child: Text(
+            "Italian Food Ristorante",
+            style: TextStyle(color: textColor, fontFamily: primaryFontFamily),
+          ),
+        ),
+      ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : Column(

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:food_order/colors.dart';
-import 'package:food_order/components/app_bar.dart';
 import 'package:food_order/components/btn.dart';
+import 'package:food_order/data/cart_model.dart';
 import 'package:food_order/data/model.dart';
+import 'package:food_order/pages/cart.dart';
 
 class FoodDetailPage extends StatefulWidget {
   final Food food;
@@ -14,13 +15,59 @@ class FoodDetailPage extends StatefulWidget {
 }
 
 class FoodDetailPageState extends State<FoodDetailPage> {
+  final List<CartModel> _cartItems = [];
+
+  void addToCart(Food food) {
+    final existingItemIndex = _cartItems.indexWhere(
+      (element) => element.name == food.name,
+    );
+
+    if (existingItemIndex != -1) {
+      _cartItems[existingItemIndex].quantity++;
+    } else {
+      _cartItems.add(
+        CartModel(
+          id: food.id,
+          name: food.name,
+          image: food.image,
+          price: food.price,
+          quantity: 1,
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     var displayInfo = MediaQuery.of(context);
     final double displayWidth = displayInfo.size.width;
+
     return Scaffold(
       backgroundColor: backgroundColor,
-      appBar: appBar(context),
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: textColor),
+          onPressed: () => Navigator.pop(context),
+        ),
+        title: Text(
+          "Italian Food Ristorante",
+          style: TextStyle(color: textColor, fontFamily: primaryFontFamily),
+        ),
+        backgroundColor: primaryColor,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.shopping_bag, color: textColor),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Cart(cartItem: _cartItems),
+                ),
+              );
+            },
+          ),
+        ],
+      ),
       body: Column(
         children: [
           Image.asset(
@@ -97,7 +144,10 @@ class FoodDetailPageState extends State<FoodDetailPage> {
                     fontFamily: secondaryFontFAmily,
                   ),
                 ),
-                Btn(title: "Add To Cart"),
+                Btn(
+                  title: "Add To Cart",
+                  onPressed: () => {addToCart(widget.food)},
+                ),
               ],
             ),
           ),
@@ -113,7 +163,11 @@ Widget textButton(text) {
     style: TextButton.styleFrom(backgroundColor: primaryColor),
     child: Text(
       text,
-      style: TextStyle(color: textColor, fontFamily: "Playwrite", fontSize: 12),
+      style: TextStyle(
+        color: textColor,
+        fontFamily: primaryFontFamily,
+        fontSize: 12,
+      ),
     ),
   );
 }

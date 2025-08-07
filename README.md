@@ -6,13 +6,13 @@ A simple food order app written with Flutter.
 
 App consists of 4 pages, Home, Foods, Details and Cart.
 
-## Home:
+### Home:
     That's the welcoming screen.
-## Foods:
+### Foods:
     There are a list of italian foods and sweets. Foods page has search field, filter list buttons and sort list dropdown menu.
-## Details:
+### Details:
     In Details page user can get more information about foods. Also, User can use "Add To Cart" button to add items into the cart.
-## Cart:
+### Cart:
     In the Cart page user can check the items added to the cart. Also, can change the quantity of item
 
 P.S: The app is not responsive and any state management tools used

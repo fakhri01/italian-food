@@ -17,7 +17,8 @@ Cart:<br>
 <br>
 P.S: The app is not responsive and any state management tools used<br><br>
 
-Screenshots of Pages
+Screenshots of Pages<br>
+
 ![Screenshot of Home Page](images/screenshots/Food%20Ristorante%20Page%20Home.png)
 ![Screenshot of Foods Page](images/screenshots/Food%20Ristorante%20Foods%20Page.png)
 ![Screenshot of Details Page](images/screenshots/Food%20Ristorante%20Details%20Page.png)

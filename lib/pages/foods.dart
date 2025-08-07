@@ -112,19 +112,21 @@ class _FoodsState extends State<Foods> {
       ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
-          : Column(
-              children: [
-                SearchFoods(onSearchChanged: onSearchChanged),
-                FilterFoods(onFilterSelected: onFilterSelected),
-                SortingButton(onSortSelected: onSortSelected),
-                Expanded(
-                  child: _foods.isEmpty
+          : SingleChildScrollView(
+              child: Column(
+                children: [
+                  SearchFoods(onSearchChanged: onSearchChanged),
+                  FilterFoods(onFilterSelected: onFilterSelected),
+                  SortingButton(onSortSelected: onSortSelected),
+                  _foods.isEmpty
                       ? Center(
                           child: Text("No results found for $_searchQuery"),
                         )
                       : Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: GridView.builder(
+                            physics: const NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
                             gridDelegate:
                                 const SliverGridDelegateWithFixedCrossAxisCount(
                                   childAspectRatio: 3,
@@ -156,8 +158,8 @@ class _FoodsState extends State<Foods> {
                             },
                           ),
                         ),
-                ),
-              ],
+                ],
+              ),
             ),
     );
   }
